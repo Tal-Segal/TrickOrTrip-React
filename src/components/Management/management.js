@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-const Contact = () => {
+const Management = () => {
     return (
         <div
             style={{
@@ -16,4 +15,4 @@ const Contact = () => {
     );
 };
 
-export default Contact;
+export default Management;
