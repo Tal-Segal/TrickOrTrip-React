@@ -1,24 +1,39 @@
-import React from 'react';
-
-import '../../css/animate.css';
-import '../../css/main.css';
-import '../../css/index.css';
+import React from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
 
-// eslint-disable-next-line react/prop-types
-const LoginModal = ({ handleClose, show, children }) => {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
-
+function ModalDialog() {
+    const [isShow, invokeModal] = React.useState(false)
+    const initModal = () => {
+        return invokeModal(!false)}
+    const closeModal = () => {
+            return invokeModal(false)
+    }
+    const saveModal = () => {
+        return invokeModal(false)
+    }
     return (
-        <div className={showHideClassName}>
-            <section className="modal-main">
-                {children}
-                <button type="button" onClick={handleClose}>
-                    Close
-                </button>
-            </section>
-        </div>
-    );
-};
-
-export default LoginModal;
+        <>
+            <Button variant="success" onClick={initModal}>
+                Open Modal
+            </Button>
+            <Modal show={isShow}>
+                <Modal.Header closeButton onClick={closeModal}>
+                    <Modal.Title>React Modal Popover Example</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={closeModal}>
+                        Close
+                    </Button>
+                    <Button variant="dark" onClick={saveModal}>
+                        Store
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
+}
+export default ModalDialog
