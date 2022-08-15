@@ -6,7 +6,7 @@ import {Button} from 'react-bootstrap'
 const logout = () => {
     localStorage.setItem('logged', 'no');
     localStorage.removeItem('role');
-    window.location.reload();
+    window.location = "http://localhost:3000";
 }
 
 function LogoutButton() {

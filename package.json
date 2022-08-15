@@ -2,6 +2,7 @@
   "name": "trick_or_trip_react",
   "type": "module",
   "version": "0.1.0",
+  "homepage": "https://Tal-Segal.github.io/TrickOrTrip-React",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -12,6 +13,7 @@
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "express": "^4.18.1",
+    "gh-pages": "^4.0.0",
     "mongoose": "^6.5.2",
     "morgan": "^1.10.0",
     "react": "^18.2.0",
@@ -28,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

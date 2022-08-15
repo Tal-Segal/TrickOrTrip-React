@@ -1,10 +1,9 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const { getGalleryView, getAllPosters, addPoster } = require('../controllers/gallery_controller.js');
+import { getAllPosters, addPoster } from '../controllers/gallery_controller.js';
 
-router.get('/', getGalleryView);
 router.get('/data', getAllPosters);
 router.post('/add', addPoster);
 
-module.exports = router;
+export default router;

@@ -1,9 +1,9 @@
-const debug = require("debug");
-const model = require('../model/index.js')("Poster");
+import debug from "debug";
+import PostersModel from '../model/user_model.js';
 
 async function getPosters() {
     try {
-        return await model.GET_ALL();
+        return await PostersModel.GET_ALL();
     } catch (err) {
         debug(`Error getting posters: ${err}`);
     }
@@ -11,13 +11,13 @@ async function getPosters() {
 
 async function addPoster(poster) {
     try {
-        return await model.ADD(poster);
+        return await PostersModel.ADD(poster);
     } catch (err) {
         debug(`Error adding a poster: ${err}`);
     }
 }
 
-module.exports = {
+export default {
     getPosters,
     addPoster
 }

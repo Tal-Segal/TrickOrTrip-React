@@ -1,4 +1,4 @@
-const service = require("../services/management_service.js");
+import service from "../services/management_service.js";
 
 const getAllUsers = async (req, res) => {
     res.json(await service.getUsers());
@@ -26,6 +26,8 @@ const editUser = async (req) => {
 
 const deleteUser = async (req, res) => {
 
+    alert("deleting");
+
     let p = req.params;
     let user = await service.getUserByUsername(p.name);
 
@@ -38,15 +40,9 @@ const deleteUser = async (req, res) => {
     }
 }
 
-const getManagementView = (req, res) => {
-    res.render("management");
-}
-
-
-module.exports = {
+export {
     getAllUsers,
     addUser,
     editUser,
-    deleteUser,
-    getManagementView
+    deleteUser
 };

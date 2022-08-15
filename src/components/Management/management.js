@@ -7,6 +7,83 @@ class Management extends React.Component {
         super(props);
     }
 
+    state = {
+        usernames: [],
+        roles: [],
+        images: []
+    };
+
+    componentDidMount() {
+        this.getPosters();
+    }
+
+    getPosters = async () => {
+        try {
+            let response = await fetch('/management/data');
+            let users = await response.json();
+
+            //alert("received!");
+            let usernames = [];
+            let roles = [];
+            let images = [];
+            for (let item of users) {
+                //alert(item.image);
+                usernames.push(item.username);
+                roles.push(item.role);
+                images.push(item.image);
+            }
+
+            this.setState({images: images, usernames: usernames, roles: roles});
+        } catch {
+            alert("error");
+        }
+    }
+
+    displayUsers = (images, usernames, roles) => {
+        if (!images.length) return null;
+
+        //alert("right here");
+        //alert(posters.length);
+        //alert(posters.at(0));
+
+        return (
+            images.map((poster, index) => (
+                <div key={index}>
+                    <div className="col-md-6">
+                        <img src={poster} alt="" className="figure-img img-fluid"/>
+                        <figcaption className="figure-caption"></figcaption>
+                    </div>
+                    <div className="col-md-6">
+                        <h4>{usernames.at(index)}</h4>
+                        <h6>{roles.at(index)}</h6>
+                        <br/>
+                        <div>
+                            <button>Delete</button>
+                            <button>Edit</button>
+                        </div>
+                        <p>Registered on</p>
+                    </div>
+                </div>
+            )));
+
+    }
+
+    async onDelete(userName) {
+        let response = await fetch("/management/delete/:" + userName);
+        let body = await response.json();
+
+        if (body){
+            alert("finished");
+        }
+    }
+
+    /*onEdit() {
+        let role = document.getElementById('editRole').value;
+        let username = document.getElementById("editModalBody").innerText;
+
+        editUser(username, role);
+    }*/
+
     render() {
         return (
             <>
@@ -15,13 +92,17 @@ class Management extends React.Component {
                         <div className="col-lg-6 col-md-12 left-side">
                             <h2>Active users
                                 <a href="javascript:" id="refresh">
-                                    <i onClick="reload()" tyle="color: #8d8d8d; font-size: x-large" className="fa fa-refresh">
+                                    <i onClick="reload()" tyle="color: #8d8d8d; font-size: x-large"
+                                       className="fa fa-refresh">
                                     </i>
                                 </a>
                             </h2>
                             <div className="row" id="management-content2">
+                                {this.displayUsers(this.state.images, this.state.usernames, this.state.roles)}
                             </div>
+
                         </div>
+
 
                         <div className="col-lg-6 col-md-12">
                             <div className="row">
@@ -54,12 +135,12 @@ class Management extends React.Component {
                                                            list="roles" required/>
                                                     <datalist id="roles">
                                                         <option value="Admin"/>
-                                                            <option value="Employee"/>
-                                                                <option value="Customer"/>
+                                                        <option value="Employee"/>
+                                                        <option value="Customer"/>
                                                     </datalist>
                                                 </div>
                                                 <div className="col-xs-6 col-md-6 form-group">
-                                                    <label htmlFor="image" >Choose image</label>
+                                                    <label htmlFor="image">Choose image</label>
                                                     <input className="form-control" id="image" name="image"
                                                            placeholder="Image"
                                                            type="file" required/>
@@ -105,7 +186,8 @@ class Management extends React.Component {
                                         <form className="form-horizontal" id="updateForm" name="updateForm">
                                             <fieldset>
                                                 <div className="group">
-                                                    <select id="editRole" name="editRole" onChange='combo(this, ’demo’)'>
+                                                    <select id="editRole" name="editRole"
+                                                            onChange='combo(this, ’demo’)'>
                                                         <option>admin</option>
                                                         <option>employee</option>
                                                         <option>costumer</option>
@@ -133,7 +215,9 @@ class Management extends React.Component {
                 </div>
             </>
         );
+
     }
 }
+
 
 export default Management;

@@ -14,7 +14,20 @@ app.use(cookieParser());
 
 
 import indexRouter from './routes/home_routes.js';
+import managementRouter from './routes/management_routes.js';
+import galleryRoutes from './routes/gallery_routes.js';
+
+app.use('/management', managementRouter);
+app.use('/gallery', galleryRoutes);
 app.use("/", indexRouter);
+
+
+import passport from 'passport';  // authentication
+app.post('/login',
+    passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
+    function(req, res) {
+        res.redirect('/~' + req.user.username);
+    });
 
 
 mongoose.connect('mongodb://localhost:27017/TrickOrTrip',

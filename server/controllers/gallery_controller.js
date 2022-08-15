@@ -1,4 +1,4 @@
-const service = require("../services/gallery_service.js");
+import service from "../services/gallery_service.js";
 
 const getAllPosters = async (req, res) => {
     res.json(await service.getPosters());
@@ -12,13 +12,8 @@ const addPoster = async (req) => {
 
 }
 
-const getGalleryView = (req, res) => {
-    res.render("gallery");
-}
 
-
-module.exports = {
+export {
     getAllPosters,
-    addPoster,
-    getGalleryView
+    addPoster
 };
