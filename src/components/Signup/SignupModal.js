@@ -22,8 +22,6 @@ function ModalDialog() {
         let formdata = new URLSearchParams(new FormData(form));
         formdata.append('role', 'customer');
 
-        alert("hereee");
-
         try {
             let response = await fetch("/signup",
                 {

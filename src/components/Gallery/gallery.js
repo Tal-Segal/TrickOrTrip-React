@@ -1,4 +1,8 @@
 import React from 'react';
+import banner_image_1 from "../../images/banner-image-1.jpg";
+import banner_image_2 from "../../images/banner-image-2.jpg";
+import banner_image_3 from "../../images/banner-image-3.jpg";
+import banner_image_4 from "../../images/banner-image-4.jpg";
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -7,7 +11,8 @@ class Gallery extends React.Component {
 
     state = {
         sources: [],
-        descriptions: []
+        descriptions: [],
+        creations: []
     };
 
     componentDidMount() {
@@ -21,32 +26,39 @@ class Gallery extends React.Component {
 
             let sources = [];
             let descriptions = [];
+            let creations = [];
             for (let item of posters) {
-                //alert(item.image);
                 sources.push(item.source);
                 descriptions.push(item.description);
+                creations.push(item.creation_date);
             }
 
-            this.setState({sources: sources, descriptions: descriptions});
+            this.setState({sources: sources, descriptions: descriptions, creations: creations});
         } catch {
             alert("error");
         }
     }
 
-    displayPosters = (sources, descriptions) => {
+    displayPosters = (sources, descriptions, creations) => {
         if (!sources.length) return null;
 
         return (
             sources.map((poster, index) => (
                 <div key={index}>
                     <div className="col-md-6">
-                        <img src={poster} alt="" className="figure-img img-fluid"/>
-                        <figcaption className="figure-caption"></figcaption>
+                        <a className="col-xl-6 col-md-4 box-1">
+                        <img src={poster} alt="" className="img-fluid"/>
+                        <div className="overlay">
+                            <div className="text">{descriptions.at(index)}</div>
+                            <div className="count">Created at {creations.at(index)}</div>
+                        </div>
+                        </a>
                     </div>
-                    <div className="col-md-6">
-                        <h4>{descriptions.at(index)}</h4>
+                    <div>
                         <button>Buy now</button>
                     </div>
+                    <br/>
+                    <br/>
                 </div>
             )));
 
@@ -54,6 +66,7 @@ class Gallery extends React.Component {
 
     render() {
         return (
+            <>
             <div>
                 <section className="gallery-page" id="gallery-content">
                     <div className="container">
@@ -63,8 +76,7 @@ class Gallery extends React.Component {
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-sm-8 mt-3">
-                                            <form className="mt-4" action="/addPoster" role="form" method="POST"
-                                                  encType="multipart/form-data">
+                                            <form className="mt-4" role="form">
                                                 <div className="form-group">
                                                     <input type="file" name="file" id="file"
                                                            className="form-control-file border" required/>
@@ -94,7 +106,7 @@ class Gallery extends React.Component {
                                     </div>
 
                                     <div className="row" id="management-content2">
-                                        {this.displayPosters(this.state.sources, this.state.descriptions)}
+                                        {this.displayPosters(this.state.sources, this.state.descriptions, this.state.creations)}
                                     </div>
                                 </div>
                             </div>
@@ -110,6 +122,62 @@ class Gallery extends React.Component {
                     </div>
                 </section>
             </div>
+
+                {/*<!-- Footer -->*/}
+                <footer>
+                    <section className="footer-top">
+                        {/*<!--Container-->*/}
+                        <div className="container">
+                            <h2>Recent Trips</h2>
+                            <div className="row text-center text-lg-left">
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_1} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_2} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_3} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_4} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_2} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_1} alt=""/></a>
+                                </div>
+                            </div>
+                        </div>
+                        {/*<!-- /.container -->*/}
+                    </section>
+                    <section className="footer-bottom">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <ul>
+                                        <li><a href="views/index.html">Home</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a href="about_us.html">About Us</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a onClick="$('#nav_bar').load('/navigation')">Gallery</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {/*<!-- /.container -->*/}
+                    </section>
+                </footer>
+                </>
         );
     }
 }

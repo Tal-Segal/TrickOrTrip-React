@@ -3,7 +3,7 @@ import mongo from "mongoose";
 let schema = new mongo.Schema({
     source: String,
     description: String,
-    creation_date: Date
+    creation_date: String
 });
 
 

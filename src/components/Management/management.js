@@ -1,6 +1,9 @@
 import React from 'react';
 
 import banner_image_2 from "../../images/banner-image-2.jpg";
+import banner_image_1 from "../../images/banner-image-1.jpg";
+import banner_image_3 from "../../images/banner-image-3.jpg";
+import banner_image_4 from "../../images/banner-image-4.jpg";
 
 class Management extends React.Component {
     constructor(props) {
@@ -11,6 +14,7 @@ class Management extends React.Component {
         usernames: [],
         roles: [],
         images: [],
+        dates: [],
         changedRole: ''
     };
 
@@ -28,21 +32,23 @@ class Management extends React.Component {
             let usernames = [];
             let roles = [];
             let images = [];
+            let dates = [];
             for (let item of users) {
                 //alert(item.image);
                 usernames.push(item.username);
                 roles.push(item.role);
                 images.push(item.image);
+                dates.push(item.start_date)
             }
 
-            this.setState({images: images, usernames: usernames, roles: roles});
+            this.setState({images: images, usernames: usernames, roles: roles, dates: dates});
         } catch {
             alert("error");
         }
     }
 
 
-    displayUsers = (images, usernames, roles) => {
+    displayUsers = (images, usernames, roles, dates) => {
         if (!images.length) return null;
 
         //alert("right here");
@@ -58,7 +64,6 @@ class Management extends React.Component {
                     <div className="col-md-6">
                         <h4>{usernames.at(index)}</h4>
                         <h6>{roles.at(index)}</h6>
-                        <br/>
                         <div>
                             <button onClick={event => this.handleDeleteClick(event, usernames.at(index))}>Delete</button>
                             <br/>
@@ -71,7 +76,8 @@ class Management extends React.Component {
                             </select>
                             <button onClick={event => this.handleEditClick(event, usernames.at(index))}>Edit</button>
                         </div>
-                        <p>Registered on</p>
+                        <p>Registered on {dates.at(index)}</p>
+                        <br/>
                     </div>
                 </div>
             )));
@@ -130,21 +136,50 @@ class Management extends React.Component {
         }
     }
 
+    async addUser() {
+        let form = document.getElementById('addUserForm');
+        // eslint-disable-next-line no-unused-vars
+        let formdata = new URLSearchParams(new FormData(form));
+        alert("adding");
+        alert(formdata.get('username'));
+        try {
+            let response = await fetch("/add",
+                {
+                    method: "post",
+                    body: formdata
+                });
+            alert(formdata);
+            if (response.ok) {
+                alert("ok");
+
+            } else {
+                alert("not ok");
+            }
+        } catch (e) {
+            alert("not ok");
+            console.error('error: ', e)
+        } finally {
+            window.location.reload();
+        }
+    }
+
     render() {
         return (
             <>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-12 left-side">
-                            <h2>Active users
+                            <br/>
+                            <h3>Active users
                                 <a href="javascript:" id="refresh">
                                     <i onClick="reload()" tyle="color: #8d8d8d; font-size: x-large"
                                        className="fa fa-refresh">
                                     </i>
                                 </a>
-                            </h2>
+                            </h3>
+                            <br/>
                             <div className="row" id="management-content2">
-                                {this.displayUsers(this.state.images, this.state.usernames, this.state.roles)}
+                                {this.displayUsers(this.state.images, this.state.usernames, this.state.roles, this.state.dates)}
                             </div>
 
                         </div>
@@ -154,13 +189,13 @@ class Management extends React.Component {
                             <div className="row">
                                 <div className="col-md-12">
                                     <div className="right-side">
+                                        <br/>
                                         <h3>Add user</h3>
+                                        <br/>
                                         <figure>
                                             <img src={banner_image_2} className="figure-img img-fluid" alt=""/>
                                         </figure>
-                                        <form id="addUserForm" method="post" className="form" role="form"
-                                              name="addUserForm"
-                                              action="/addUser">
+                                        <form id="addUserForm" name="addUserForm">
                                             <div className="row">
                                                 <div className="col-xs-6 col-md-6 form-group">
                                                     <input className="form-control" id="username" name="username"
@@ -190,16 +225,13 @@ class Management extends React.Component {
                                                     <input className="form-control" id="image" name="image"
                                                            placeholder="Image"
                                                            type="file" required/>
-                                                    {/*<input className="form-control" id="image" style="display: none" name="image" placeholder="Image" type="file" required/>*/}
-
                                                 </div>
                                             </div>
                                             <br/>
                                             <div className="row">
                                                 <div className="col-xs-12 col-md-12 form-group">
                                                     <button className="btn btn-primary"
-                                                            onClick="addUser(form)">Add
-                                                    </button>
+                                                            onClick= {() => this.addUser()}>Add</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -259,6 +291,61 @@ class Management extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                {/*<!-- Footer -->*/}
+                <footer>
+                    <section className="footer-top">
+                        {/*<!--Container-->*/}
+                        <div className="container">
+                            <h2>Recent Trips</h2>
+                            <div className="row text-center text-lg-left">
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_1} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_2} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_3} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_4} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_2} alt=""/></a>
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-xs-6">
+                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                                                                                                src={banner_image_1} alt=""/></a>
+                                </div>
+                            </div>
+                        </div>
+                        {/*<!-- /.container -->*/}
+                    </section>
+                    <section className="footer-bottom">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <ul>
+                                        <li><a href="views/index.html">Home</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a href="about_us.html">About Us</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a onClick="$('#nav_bar').load('/navigation')">Gallery</a></li>
+                                        <li className="hidden">/</li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {/*<!-- /.container -->*/}
+                    </section>
+                </footer>
             </>
         );
 

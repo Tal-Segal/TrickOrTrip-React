@@ -13,7 +13,7 @@ async function getUsers() {
 async function addUser(user) {
     try {
         return await UserModel.create({
-            username: user[0], password: user[1], role: user[2], image: user[3], start_date: Date.now(), isValid: true
+            username: user[0], password: user[1], role: user[2], image: user[3], start_date: Date.now().toString, isValid: true
         });
     } catch (err) {
         debug(`Error adding a user: ${err}`);

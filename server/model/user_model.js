@@ -5,7 +5,7 @@ let schema = new mongo.Schema({
     password: {type: String, required: true},
     role: {type: String, enum: ['admin', 'employee', 'customer'], default: 'customer'},
     image: String,
-    start_date: Date,
+    start_date: String,
     isValid: Boolean
 });
 
