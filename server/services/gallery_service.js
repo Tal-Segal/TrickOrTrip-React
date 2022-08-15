@@ -1,9 +1,9 @@
 import debug from "debug";
-import PostersModel from '../model/user_model.js';
+import PosterModel from '../model/poster_model.js';
 
 async function getPosters() {
     try {
-        return await PostersModel.GET_ALL();
+        return await PosterModel.find({}).exec();
     } catch (err) {
         debug(`Error getting posters: ${err}`);
     }
@@ -11,7 +11,9 @@ async function getPosters() {
 
 async function addPoster(poster) {
     try {
-        return await PostersModel.ADD(poster);
+        return await PosterModel.create({
+            source: poster[0], description: poster[1], creation_date: poster[2]
+        });
     } catch (err) {
         debug(`Error adding a poster: ${err}`);
     }

@@ -17,17 +17,15 @@ const addUser = async (req, res) => {
     }
 }
 
-const editUser = async (req) => {
+const editUser = async (req, res) => {
     let params = req.params;
     let user = await service.getUserByUsername(params.name);
     console.log(params);
     await service.editUser(user._id, { role: params.role });
+    res.sendStatus(200);
 }
 
 const deleteUser = async (req, res) => {
-
-    alert("deleting");
-
     let p = req.params;
     let user = await service.getUserByUsername(p.name);
 

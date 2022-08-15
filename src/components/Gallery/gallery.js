@@ -5,6 +5,53 @@ class Gallery extends React.Component {
         super(props);
     }
 
+    state = {
+        sources: [],
+        descriptions: []
+    };
+
+    componentDidMount() {
+        this.getPosters();
+    }
+
+    getPosters = async () => {
+        try {
+            let response = await fetch('/gallery/data');
+            let posters = await response.json();
+
+            let sources = [];
+            let descriptions = [];
+            for (let item of posters) {
+                //alert(item.image);
+                sources.push(item.source);
+                descriptions.push(item.description);
+            }
+
+            this.setState({sources: sources, descriptions: descriptions});
+        } catch {
+            alert("error");
+        }
+    }
+
+    displayPosters = (sources, descriptions) => {
+        if (!sources.length) return null;
+
+        return (
+            sources.map((poster, index) => (
+                <div key={index}>
+                    <div className="col-md-6">
+                        <img src={poster} alt="" className="figure-img img-fluid"/>
+                        <figcaption className="figure-caption"></figcaption>
+                    </div>
+                    <div className="col-md-6">
+                        <h4>{descriptions.at(index)}</h4>
+                        <button>Buy now</button>
+                    </div>
+                </div>
+            )));
+
+    }
+
     render() {
         return (
             <div>
@@ -44,6 +91,10 @@ class Gallery extends React.Component {
                                         <div className="col-sm-12">
                                             <div className="preview-images"></div>
                                         </div>
+                                    </div>
+
+                                    <div className="row" id="management-content2">
+                                        {this.displayPosters(this.state.sources, this.state.descriptions)}
                                     </div>
                                 </div>
                             </div>

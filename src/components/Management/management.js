@@ -10,8 +10,10 @@ class Management extends React.Component {
     state = {
         usernames: [],
         roles: [],
-        images: []
+        images: [],
+        changedRole: ''
     };
+
 
     componentDidMount() {
         this.getPosters();
@@ -39,13 +41,13 @@ class Management extends React.Component {
         }
     }
 
+
     displayUsers = (images, usernames, roles) => {
         if (!images.length) return null;
 
         //alert("right here");
         //alert(posters.length);
         //alert(posters.at(0));
-
         return (
             images.map((poster, index) => (
                 <div key={index}>
@@ -58,8 +60,16 @@ class Management extends React.Component {
                         <h6>{roles.at(index)}</h6>
                         <br/>
                         <div>
-                            <button>Delete</button>
-                            <button>Edit</button>
+                            <button onClick={event => this.handleDeleteClick(event, usernames.at(index))}>Delete</button>
+                            <br/>
+                            <b> Edit user role </b>
+                            <select onChange={(event) => this.changeRole(event)}>
+                                <option> ---Choose role---</option>
+                                <option> Admin </option>
+                                <option> Employee </option>
+                                <option> Customer </option>
+                            </select>
+                            <button onClick={event => this.handleEditClick(event, usernames.at(index))}>Edit</button>
                         </div>
                         <p>Registered on</p>
                     </div>
@@ -68,21 +78,57 @@ class Management extends React.Component {
 
     }
 
-    async onDelete(userName) {
-        let response = await fetch("/management/delete/:" + userName);
-        let body = await response.json();
+    changeRole(event) {
+        this.setState({changedRole: event.target.value});
+    }
 
-        if (body){
-            alert("finished");
+    handleDeleteClick(event, username)
+    {
+        this.onDelete(username);
+    }
+
+    handleEditClick(event, username)
+    {
+        this.onEdit(username, this.state.changedRole);
+    }
+
+    async onDelete(userName) {
+
+        try {
+            // check is user exists
+            let response = await fetch("/management/delete/" + userName, {method: 'delete', body:userName} )
+            //let body = await response.json();
+
+            if (response.ok) {
+                alert("ok");
+
+            } else {
+                alert("not ok")
+            }
+        } catch (e) {
+            console.error('error: ', e)
+        } finally {
+            window.location.reload();
         }
     }
 
-    /*onEdit() {
-        let role = document.getElementById('editRole').value;
-        let username = document.getElementById("editModalBody").innerText;
+    async onEdit(username, role) {
+        try {
+            let response = await fetch(
+                "/management/edit/" + username + "/" + role,
+                {method: 'put'})
+            if (response.ok) {
+                alert("ok");
 
-        editUser(username, role);
-    }*/
+            } else {
+                alert("not ok")
+            }
+        } catch (e) {
+            console.error('error: ', e)
+        } finally {
+            window.location.reload();
+        }
+    }
 
     render() {
         return (
