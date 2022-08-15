@@ -1,32 +1,56 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/NavBar';
-import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './components/index';
-import About from './components/About/about';
-import Contact from './components/Contact/contact';
-import Gallery from './components/Gallery/gallery';
-import Management from './components/Management/management';
-import LoginModal from './components/Login/LoginModal'
+import Navbar from './components/NavBar/index.js';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './components/index.js';
+import About from './components/About/about.js';
+import Contact from './components/Contact/contact.js';
+import Gallery from './components/Gallery/gallery.js';
+import Management from './components/Management/management.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
-function App() {
-  return (
-      <Router>
-        <Navbar />
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/contact" element={<Contact/>}/>
-            <Route path="/gallery" element={<Gallery/>}/>
-            <Route path="/management" element={<Management/>}/>
-        </Routes>
-          <div className="container mt-3">
-              <LoginModal />
-          </div>
-      </Router>
 
-  );
+class App extends React.Component {
+    state = {
+        data: null
+    };
+
+    componentDidMount() {
+        this.callBackendAPI()
+            .then(res => this.setState({data: res.express}))
+            .catch(err => console.log(err));
+    }
+
+    // fetching the GET route from the Express server which matches the GET route from server.js
+    callBackendAPI = async () => {
+        const response = await fetch('/express_backend');
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message)
+        }
+        return body;
+    };
+
+    render() {
+        return (
+            <>
+                <Router>
+                    <Navbar/>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/contact" element={<Contact/>}/>
+                        <Route path="/gallery" element={<Gallery/>}/>
+                        <Route path="/management" element={<Management/>}/>
+                    </Routes>
+                </Router>
+
+                <p className="App-intro">{this.state.data}</p>
+            </>
+
+        );
+    }
 }
 
 export default App;

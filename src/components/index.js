@@ -67,8 +67,8 @@ class Home extends React.Component {
                                 <img className="d-block w-100" src={banner_image_4} alt="First slide"/>
                                 <div className="gradient"></div>
                                 <div className="carousel-caption">
-                                    <h1>Woman walking in the green fields.</h1>
-                                    <p className="lead">Woman walking in the green fields...</p>
+                                    <h1>Welcome to Trick or Trip website.</h1>
+                                    <p className="lead">We gonna have fun together...</p>
                                 </div>
                             </div>
                             <div className="carousel-item">
