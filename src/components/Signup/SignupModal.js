@@ -59,7 +59,7 @@ function ModalDialog() {
             </Button>
             <Modal show={isShow}>
                 <Modal.Header closeButton onClick={closeModal}>
-                    <Modal.Title>React Modal Popover Example</Modal.Title>
+                    <Modal.Title>User Sign Up</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 

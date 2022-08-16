@@ -8,8 +8,8 @@ import {useState} from "react";
 
 function ModalDialog() {
     const [isShow, invokeModal] = React.useState(false)
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [credit_card, setCredit] = useState("");
+    const [price, setPrice] = useState("");
 
     const initModal = () => {
         return invokeModal(true)
@@ -24,33 +24,28 @@ function ModalDialog() {
 
     async function handleSubmit() {
 
-        let form = document.getElementById('loginForm');
+        let form = document.getElementById('checkoutForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        alert("here");
+        formdata.append('date', Date.now().toString());
+        formdata.append('username', localStorage.getItem('username'));
+        alert(formdata);
 
         try {
             // check is user exists
-            let response = await fetch("/login",
+            let response = await fetch("/gallery/addOrder",
                 {
                     method: "post",
                     body: formdata
                 });
 
-            let body = await response.json();
+            //let body = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('username', formdata.get('username'));
-                localStorage.setItem('logged', 'yes');
-
-                alert("isLogged: " + localStorage.getItem('logged'));
-
-                localStorage.setItem('role', body.userRole);
-                alert("role: " + localStorage.getItem('role'));
+                alert("ok");
 
             } else {
-                localStorage.setItem('logged', 'no');
-                alert("Invalid user credentials. Please try again.")
+                alert("not ok");
             }
         } catch (e) {
             console.error('error: ', e)
@@ -62,37 +57,36 @@ function ModalDialog() {
     return (
         <>
             <Button variant="success" onClick={initModal}>
-                Login
+                Buy it now
             </Button>
             <Modal show={isShow}>
                 <Modal.Header closeButton onClick={closeModal}>
-                    <Modal.Title>User Log In</Modal.Title>
+                    <Modal.Title>Check out</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form id="loginForm" name="loginForm">
-                        <Form.Group controlId="username">
+                    <Form id="checkoutForm" name="checkoutForm">
+                        <Form.Group controlId="credit_card">
                             <Form.Label>
-                                Username
+                                Credit Card Number
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                value={username}
+                                value={credit_card}
                                 required
-                                name="username"
-                                onChange={(e) => setUsername(e.target.value)}
+                                name="credit_card"
+                                onChange={(e) => setCredit(e.target.value)}
                             />
                         </Form.Group>
-
-                        <Form.Group controlId="password">
+                        <Form.Group controlId="price">
                             <Form.Label>
-                                Password
+                                Price
                             </Form.Label>
                             <Form.Control
-                                type="password"
-                                value={password}
+                                type="text"
+                                value={price}
                                 required
-                                name="password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                name="price"
+                                onChange={(e) => setPrice(e.target.value)}
                             />
                         </Form.Group>
                     </Form>
@@ -102,7 +96,7 @@ function ModalDialog() {
                         Cancel
                     </Button>
                     <Button variant="dark" type="submit" onClick={handleSubmit}>
-                        Log in
+                        Pay
                     </Button>
                 </Modal.Footer>
             </Modal>

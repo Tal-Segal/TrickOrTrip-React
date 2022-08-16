@@ -7,6 +7,7 @@ import About from './components/About/about.js';
 import Contact from './components/Contact/contact.js';
 import Gallery from './components/Gallery/gallery.js';
 import Management from './components/Management/management.js';
+import Orders from './components/Orders/orders.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -43,6 +44,7 @@ class App extends React.Component {
                         <Route path="/contact" element={<Contact/>}/>
                         <Route path="/gallery" element={<Gallery/>}/>
                         <Route path="/management" element={<Management/>}/>
+                        <Route path="/orders" element={<Orders/>}/>
                     </Routes>
                 </Router>
 

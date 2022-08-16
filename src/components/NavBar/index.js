@@ -68,6 +68,13 @@ class Navbar extends React.Component {
                                 </NavLink>
                             </li> : <div/>
                         }
+                        {isLoggedIn
+                            ? <li id="nav-orders">
+                                <NavLink to='/orders' activeStyle>
+                                    My Orders
+                                </NavLink>
+                            </li> : <div/>
+                        }
                         {!isLoggedIn
                             ? <li id="nav-login">
                                 <div className="container mt-3">

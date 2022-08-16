@@ -3,6 +3,7 @@ import banner_image_1 from "../../images/banner-image-1.jpg";
 import banner_image_2 from "../../images/banner-image-2.jpg";
 import banner_image_3 from "../../images/banner-image-3.jpg";
 import banner_image_4 from "../../images/banner-image-4.jpg";
+import CheckoutModal from "../Gallery/CheckoutModal.js";
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class Gallery extends React.Component {
     state = {
         sources: [],
         descriptions: [],
-        creations: []
+        creations: [],
+        prices: []
     };
 
     componentDidMount() {
@@ -27,27 +29,30 @@ class Gallery extends React.Component {
             let sources = [];
             let descriptions = [];
             let creations = [];
+            let prices = [];
             for (let item of posters) {
                 sources.push(item.source);
                 descriptions.push(item.description);
                 creations.push(item.creation_date);
+                prices.push(item.price);
             }
 
-            this.setState({sources: sources, descriptions: descriptions, creations: creations});
+            this.setState({sources: sources, descriptions: descriptions, creations: creations, prices: prices});
         } catch {
             alert("error");
         }
     }
 
-    displayPosters = (sources, descriptions, creations) => {
+    displayPosters = (sources, descriptions, creations, prices) => {
         if (!sources.length) return null;
 
         return (
             sources.map((poster, index) => (
-                <div key={index}>
-                    <div className="col-md-6">
+                <>
+                <div key={index} className="col-5">
+                    <div className="col-md-12 ">
                         <a className="col-xl-6 col-md-4 box-1">
-                        <img src={poster} alt="" className="img-fluid"/>
+                        <img src={poster} border="3px" alt="" className="img-fluid"/>
                         <div className="overlay">
                             <div className="text">{descriptions.at(index)}</div>
                             <div className="count">Created at {creations.at(index)}</div>
@@ -55,13 +60,43 @@ class Gallery extends React.Component {
                         </a>
                     </div>
                     <div>
-                        <button>Buy now</button>
+                        <button>{prices.at(index)}</button>
+                        <div className="container mt-3">
+                            <CheckoutModal/>
+                        </div>
                     </div>
                     <br/>
                     <br/>
                 </div>
+                </>
             )));
+    }
 
+    addPoster = async () => {
+        let form = document.getElementById('addPosterForm');
+        // eslint-disable-next-line no-unused-vars
+        let formdata = new URLSearchParams(new FormData(form));
+        alert("adding");
+        alert(formdata.get('description'));
+        try {
+            let response = await fetch("/gallery/add",
+                {
+                    method: "post",
+                    body: formdata
+                });
+            alert(formdata);
+            if (response.ok) {
+                alert("ok");
+
+            } else {
+                alert("not ok");
+            }
+        } catch (e) {
+            alert("not ok");
+            console.error('error: ', e)
+        } finally {
+            window.location.reload();
+        }
     }
 
     render() {
@@ -75,25 +110,27 @@ class Gallery extends React.Component {
                             <div className="col-md-12 col-12" id="gallery-div">
                                 <div className="container">
                                     <div className="row">
-                                        <div className="col-sm-8 mt-3">
-                                            <form className="mt-4" role="form">
+                                        <div className="mt-3" align="center">
+                                            <form className="mt-4 col-sm-5" id="addPosterForm" role="form" >
                                                 <div className="form-group">
                                                     <input type="file" name="file" id="file"
                                                            className="form-control-file border" required/>
                                                 </div>
+                                                <br/>
                                                 <div className="form-group">
                                                     <input className="form-control" id="description" name="description"
                                                            placeholder="Description"
                                                            type="text" required/>
                                                 </div>
+                                                <br/>
                                                 <div className="form-group">
-                                                    <input className="form-control" id="creation_date"
-                                                           name="creation_date"
-                                                           placeholder="Creation Date"
-                                                           type="date" required/>
+                                                    <input className="form-control" id="price"
+                                                           name="price"
+                                                           placeholder="Price"
+                                                           type="text" required/>
                                                 </div>
-                                                <button type="submit" onClick="addPoster(form)"
-                                                        className="btn btn-primary">Submit
+                                                <br/>
+                                                <button onClick={this.addPoster} type="submit" className="btn btn-primary">Add Poster
                                                 </button>
                                             </form>
                                         </div>
@@ -104,9 +141,8 @@ class Gallery extends React.Component {
                                             <div className="preview-images"></div>
                                         </div>
                                     </div>
-
-                                    <div className="row" id="management-content2">
-                                        {this.displayPosters(this.state.sources, this.state.descriptions, this.state.creations)}
+                                    <div className="row" align="center">
+                                        {this.displayPosters(this.state.sources, this.state.descriptions, this.state.creations, this.state.prices)}
                                     </div>
                                 </div>
                             </div>
