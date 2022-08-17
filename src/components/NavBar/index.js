@@ -25,7 +25,7 @@ class Navbar extends React.Component {
         const isLoggedIn = localStorage.getItem('logged') === "yes";
         const isAdmin = localStorage.getItem('role') === "admin";
         //const isEmployee = localStorage.getItem('role') === "employee";
-        //const isCustomer = localStorage.getItem('role') === "customer";
+        const isCustomer = localStorage.getItem('role') === "customer";
 
 
         return (
@@ -68,7 +68,7 @@ class Navbar extends React.Component {
                                 </NavLink>
                             </li> : <div/>
                         }
-                        {isLoggedIn
+                        {isLoggedIn && isCustomer
                             ? <li id="nav-orders">
                                 <NavLink to='/orders' activeStyle>
                                     My Orders

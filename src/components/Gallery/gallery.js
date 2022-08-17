@@ -49,6 +49,7 @@ class Gallery extends React.Component {
         return (
             sources.map((poster, index) => (
                 <>
+                    <div className="col" align="center"></div>
                 <div key={index} className="col-5">
                     <div className="col-md-12 ">
                         <a className="col-xl-6 col-md-4 box-1">
@@ -104,7 +105,8 @@ class Gallery extends React.Component {
                 <section className="gallery-page" id="gallery-content">
                     <div className="container">
                         <h2>Recently Added Photographs</h2>
-                        <div className="row justify-content-center">
+                        <div className="justify-content-center">
+                            <div className="col-12"></div>
                             <div className="col-md-12 col-12" id="gallery-div">
                                 <div className="container">
                                     <div className="row">
@@ -134,7 +136,7 @@ class Gallery extends React.Component {
                                         </div>
                                     </div>
                                     <hr/>
-                                    <div className="row">
+                                    <div>
                                         <div className="col-sm-12">
                                             <div className="preview-images"></div>
                                         </div>

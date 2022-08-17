@@ -2,6 +2,10 @@ import React from 'react';
 
 import support_bg from "../../images/support-bg.jpg";
 
+import emailjs from '@emailjs/browser'
+
+import EmailForm from './EmailForm.js';
+
 import '../../css/animate.css';
 import '../../css/main.css';
 import '../../css/index.css';
@@ -13,6 +17,41 @@ import banner_image_4 from "../../images/banner-image-4.jpg";
 class Contact extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { feedback: '', name: '', email: '', number: '' };
+    }
+
+    setFeedback(event) {
+        this.setState({feedback: event.target.value})
+    }
+
+    setName(event) {
+        this.setState({name: event.target.value})
+    }
+
+    setEmail(event) {
+        this.setState({email: event.target.value})
+    }
+
+    setNumber(event) {
+        this.setState({number: event.target.value})
+    }
+
+    handleSubmit = () => {
+        const templateId = 'template_id';
+
+        this.sendFeedback(templateId, {message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email})
+    }
+
+    sendFeedback = (templateId, variables) => {
+        emailjs.init("e_UstuqeKRd-qH5Zc");
+        emailjs.send(
+            'gmail', templateId,
+            variables
+        ).then(() => {
+            console.log('Email successfully sent!')
+        })
+            // Handle errors here however you like, or use a React error boundary
+            .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
     }
 
     render() {
@@ -38,38 +77,7 @@ class Contact extends React.Component {
                         </div>
 
                     </div>
-                    <div>
-                        <div className="container py-5 main">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <form>
-                                        <div className="form-group row">
-                                            <div className="col-sm-6">
-                                                <input type="text" className="form-control" placeholder="Your Name"
-                                                       required/>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <input type="text" className="form-control" placeholder="Your Email id"
-                                                       required/>
-                                            </div>
-                                            <div className="col-sm-12">
-                                                <input type="number" className="form-control"
-                                                       placeholder="Your Phone Number" required/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-sm-12">
-                                                <textarea type="text" className="form-control"
-                                                          placeholder="your Message" rows="8" required></textarea>
-                                            </div>
-                                        </div>
-                                        <button type="submit" className="btn btn-primary px-4">Alright Submit it
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <EmailForm/>
                 </div>
 
                 {/*<!-- Footer -->*/}
