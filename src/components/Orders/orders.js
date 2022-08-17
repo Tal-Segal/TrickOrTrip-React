@@ -1,31 +1,89 @@
 import React from 'react';
-
 import banner_image_1 from "../../images/banner-image-1.jpg";
 import banner_image_2 from "../../images/banner-image-2.jpg";
 import banner_image_3 from "../../images/banner-image-3.jpg";
 import banner_image_4 from "../../images/banner-image-4.jpg";
 
-class About extends React.Component {
+/*import banner_image_1 from "../../images/banner-image-1.jpg";
+import banner_image_2 from "../../images/banner-image-2.jpg";
+import banner_image_3 from "../../images/banner-image-3.jpg";
+import banner_image_4 from "../../images/banner-image-4.jpg";*/
+
+
+class Orders extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    render() {
+    state = {
+        dates: [],
+        prices: [],
+        cards: []
+    };
+
+    componentDidMount() {
+        this.fetchOrders();
+    }
+
+    fetchOrders = async () => {
+        try {
+            let response = await fetch("/orders/data/" + localStorage.getItem('username'));
+            let orders = await response.json();
+
+            let dates = [];
+            let prices = [];
+            let cards = [];
+            for (let item of orders) {
+                dates.push(item.date);
+                prices.push(item.price);
+                cards.push(item.credit_card);
+            }
+
+            this.setState({dates: dates, prices: prices, cards: cards});
+        } catch {
+            alert("error");
+        }
+    };
+
+    displayOrders = (dates, prices, cards) => {
+        if (!dates.length) return null;
+
         return (
             <>
-                <div className="about-page" id="about-content">
-                    <div className="container">
-                        <div className="row" id="about-content2">
+                    <div className="col-2"></div>
+            <div className="orders col" key={dates._id}>
+                <br/>
+                <br/>
+                <h2>Orders</h2>
+                <br/>
+                <table className="table table-striped table-light table-bordered table-hover" width="auto">
+                    <thead className="thead-light">
+                    <tr>
+                        <th width="30%">DATE</th>
+                        <th width="30%">PRICE</th>
+                        <th width="30%">CREDIT_CARD</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {dates.map((date, index) => (
+                        // eslint-disable-next-line react/jsx-key
+                        <tr>
+                            <td>{date}</td>
+                            <td>{prices.at(index)}</td>
+                            <td>{cards.at(index)}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+                <div className="col-2"></div>
 
-                            <div className="col-sm-12">
-                                <h3>My Orders</h3>
-                                <figure >
-                                    <img src={banner_image_1} alt="about"/>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {/*<!-- Footer -->*/}
                 <footer>
@@ -60,6 +118,7 @@ class About extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {/*<!-- /.container -->*/}
                     </section>
                     <section className="footer-bottom">
                         <div className="container">
@@ -80,10 +139,17 @@ class About extends React.Component {
                         {/*<!-- /.container -->*/}
                     </section>
                 </footer>
-
             </>
-        );
+        )
+    }
+
+    render() {
+        return (
+            <div className="row" align="center">
+                {this.displayOrders(this.state.dates, this.state.prices, this.state.cards)}
+            </div>
+        )
     }
 }
 
-export default About;
+export default Orders;

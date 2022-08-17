@@ -76,8 +76,6 @@ class Gallery extends React.Component {
         let form = document.getElementById('addPosterForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        alert("adding");
-        alert(formdata.get('description'));
         try {
             let response = await fetch("/gallery/add",
                 {

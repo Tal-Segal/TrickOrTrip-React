@@ -16,9 +16,11 @@ app.use(cookieParser());
 import indexRouter from './routes/home_routes.js';
 import managementRouter from './routes/management_routes.js';
 import galleryRoutes from './routes/gallery_routes.js';
+import ordersRoutes from './routes/orders_routes.js';
 
 app.use('/management', managementRouter);
 app.use('/gallery', galleryRoutes);
+app.use('/orders', ordersRoutes);
 app.use("/", indexRouter);
 
 

@@ -9,10 +9,10 @@ async function getPosters() {
     }
 }
 
-async function addPoster(poster) {
+async function addPoster(source, description, date, price) {
     try {
         return await PosterModel.create({
-            source: poster[0], description: poster[1], creation_date: poster[2]
+            source: source, description: description, creation_date: date, price: price
         });
     } catch (err) {
         debug(`Error adding a poster: ${err}`);

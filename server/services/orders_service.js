@@ -9,10 +9,10 @@ async function getOrders(username) {
     }
 }
 
-async function addOrder(order) {
+async function addOrder(date, price, credit_card, username) {
     try {
         return await OrderModel.create({
-            date: order[0], price: order[1], credit_card: order[2], username: order[3]
+            date: date, price: price, credit_card: credit_card, username: username
         });
     } catch (err) {
         debug(`Error adding a poster: ${err}`);

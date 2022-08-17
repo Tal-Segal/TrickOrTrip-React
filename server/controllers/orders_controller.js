@@ -1,16 +1,12 @@
 import service from "../services/orders_service.js";
 
 const getOrders = async (req, res) => {
-    let params = req.params;
-    res.json(await service.getOrders(params.username));
-    res.sendStatus(200);
+    let p = req.params;
+    res.json(await service.getOrders(p.name));
 }
 
 const addOrder = async (req, res) => {
-    console.log("here");
-    console.log(req.params);
-    let params = req.params;
-    await service.addOrder(params.date, params.price, params.credit_card, params.username);
+    await service.addOrder(req.body.date, req.body.price, req.body.credit_card, req.body.username);
     res.sendStatus(200);
 }
 

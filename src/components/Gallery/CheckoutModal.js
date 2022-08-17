@@ -27,7 +27,7 @@ function ModalDialog() {
         let form = document.getElementById('checkoutForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        formdata.append('date', Date.now().toString());
+        formdata.append('date', new Date().toLocaleString() + "");
         formdata.append('username', localStorage.getItem('username'));
         alert(formdata);
 

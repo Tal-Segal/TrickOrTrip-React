@@ -15,6 +15,13 @@ function ModalDialog() {
         return invokeModal(false)
     }
 
+    /*const changeHandler=(e)=>{
+        if (e.target.files.length > 0) {
+            let filename = e.target.files[0].name;
+            setImage("C:\\Users\\user\\trick_or_trip_react\\src\\images" + filename);
+        }
+    }*/
+
     async function handleSubmit() {
 
         let form = document.getElementById('signupForm');
@@ -36,10 +43,10 @@ function ModalDialog() {
                 localStorage.setItem('username', formdata.get('username'));
                 localStorage.setItem('logged', 'yes');
 
-                alert("isLogged: " + localStorage.getItem('logged'));
+                //alert("isLogged: " + localStorage.getItem('logged'));
 
                 localStorage.setItem('role', body.userRole);
-                alert("role: " + localStorage.getItem('role'));
+                //alert("role: " + localStorage.getItem('role'));
 
             } else {
                 localStorage.setItem('logged', 'no');

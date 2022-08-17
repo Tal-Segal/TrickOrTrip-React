@@ -10,10 +10,10 @@ async function getUsers() {
     }
 }
 
-async function addUser(user) {
+async function addUser(username, password, role) {
     try {
         return await UserModel.create({
-            username: user[0], password: user[1], role: user[2], image: user[3], start_date: Date.now().toString, isValid: true
+            username: username, password: password, role: role, image: "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg", start_date: new Date().toLocaleString() + "", isValid: true
         });
     } catch (err) {
         debug(`Error adding a user: ${err}`);

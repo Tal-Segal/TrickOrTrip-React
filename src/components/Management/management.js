@@ -136,19 +136,18 @@ class Management extends React.Component {
         }
     }
 
-    async addUser() {
+    addUser = async () => {
         let form = document.getElementById('addUserForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
         alert("adding");
         alert(formdata.get('username'));
         try {
-            let response = await fetch("/add",
+            let response = await fetch("/management/add",
                 {
                     method: "post",
                     body: formdata
                 });
-            alert(formdata);
             if (response.ok) {
                 alert("ok");
 
