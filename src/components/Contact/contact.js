@@ -68,11 +68,6 @@ class Contact extends React.Component {
                                 </figure>
                             </div>
                             <div className="col-sm-12">
-                                <p> Welcome to my personal travel blog, i love to travel the globe </p>
-                                <p> I have been to so many beautiful places and met interesting people the world </p>
-                                <p> This website is my mirror of life </p>
-                                <p> I love to travel the globe, it is such a wonderful place </p>
-                                <p> Come and take an adventure with me </p>
                             </div>
                         </div>
 
@@ -88,27 +83,27 @@ class Contact extends React.Component {
                             <h2>Recent Trips</h2>
                             <div className="row text-center text-lg-left">
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_1} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_3} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_4} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_1} alt=""/></a>
                                 </div>
                             </div>

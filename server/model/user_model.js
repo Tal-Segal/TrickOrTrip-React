@@ -6,7 +6,12 @@ let schema = new mongo.Schema({
     role: {type: String, enum: ['admin', 'employee', 'customer'], default: 'customer'},
     image: String,
     start_date: String,
-    isValid: Boolean
+    isValid: Boolean,
+    profile:
+        {
+            data: Buffer,
+            contentType: String
+        }
 });
 
 /*

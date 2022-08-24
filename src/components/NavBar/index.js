@@ -75,6 +75,14 @@ class Navbar extends React.Component {
                                 </NavLink>
                             </li> : <div/>
                         }
+                        {isLoggedIn
+                            ? <li id="nav-chat">
+                                <NavLink to='/chatenv' activeStyle>
+                                    Chat
+                                </NavLink>
+                            </li>
+                            : <div/>
+                        }
                         {!isLoggedIn
                             ? <li id="nav-login">
                                 <div className="container mt-3">

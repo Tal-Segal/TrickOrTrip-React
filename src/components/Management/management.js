@@ -1,4 +1,5 @@
 import React from 'react';
+import {Convert} from 'mongo-image-converter';
 
 import banner_image_2 from "../../images/banner-image-2.jpg";
 import banner_image_1 from "../../images/banner-image-1.jpg";
@@ -15,7 +16,8 @@ class Management extends React.Component {
         roles: [],
         images: [],
         dates: [],
-        changedRole: ''
+        changedRole: '',
+        imageFile: ''
     };
 
 
@@ -65,14 +67,15 @@ class Management extends React.Component {
                         <h4>{usernames.at(index)}</h4>
                         <h6>{roles.at(index)}</h6>
                         <div>
-                            <button onClick={event => this.handleDeleteClick(event, usernames.at(index))}>Delete</button>
+                            <button onClick={event => this.handleDeleteClick(event, usernames.at(index))}>Delete
+                            </button>
                             <br/>
                             <b> Edit user role </b>
                             <select onChange={(event) => this.changeRole(event)}>
                                 <option> ---Choose role---</option>
-                                <option> Admin </option>
-                                <option> Employee </option>
-                                <option> Customer </option>
+                                <option> Admin</option>
+                                <option> Employee</option>
+                                <option> Customer</option>
                             </select>
                             <button onClick={event => this.handleEditClick(event, usernames.at(index))}>Edit</button>
                         </div>
@@ -88,13 +91,11 @@ class Management extends React.Component {
         this.setState({changedRole: event.target.value});
     }
 
-    handleDeleteClick(event, username)
-    {
+    handleDeleteClick(event, username) {
         this.onDelete(username);
     }
 
-    handleEditClick(event, username)
-    {
+    handleEditClick(event, username) {
         this.onEdit(username, this.state.changedRole);
     }
 
@@ -102,7 +103,7 @@ class Management extends React.Component {
 
         try {
             // check is user exists
-            let response = await fetch("/management/delete/" + userName, {method: 'delete', body:userName} )
+            let response = await fetch("/management/delete/" + userName, {method: 'delete', body: userName})
             //let body = await response.json();
 
             if (response.ok) {
@@ -140,8 +141,17 @@ class Management extends React.Component {
         let form = document.getElementById('addUserForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        alert("adding");
-        alert(formdata.get('username'));
+        alert("before conversion: " + this.state.imageFile);
+
+        const convertedImage = await Convert(this.state.imageFile)
+        alert("after conversion: " + convertedImage);
+
+        if (!convertedImage) {
+            alert('The file is not in format of image/jpeg or image/png')
+        } else {
+            formdata.append('profile', convertedImage);
+        }
+
         try {
             let response = await fetch("/management/add",
                 {
@@ -160,6 +170,7 @@ class Management extends React.Component {
         } finally {
             window.location.reload();
         }
+
     }
 
     render() {
@@ -223,14 +234,17 @@ class Management extends React.Component {
                                                     <label htmlFor="image">Choose image</label>
                                                     <input className="form-control" id="image" name="image"
                                                            placeholder="Image"
-                                                           type="file" required/>
+                                                           type="file" required
+                                                           onChange={(e) => this.setState({imageFile: e.target.files[0]})}
+                                                    />
                                                 </div>
                                             </div>
                                             <br/>
                                             <div className="row">
                                                 <div className="col-xs-12 col-md-12 form-group">
                                                     <button className="btn btn-primary"
-                                                            onClick= {() => this.addUser()}>Add</button>
+                                                            onClick={() => this.addUser()}>Add
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -299,28 +313,34 @@ class Management extends React.Component {
                             <h2>Recent Trips</h2>
                             <div className="row text-center text-lg-left">
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_1} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_1} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_2} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_3} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_3} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_4} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_4} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_2} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
-                                                                                                                src={banner_image_1} alt=""/></a>
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img
+                                        className="img-fluid img-thumbnail"
+                                        src={banner_image_1} alt=""/></a>
                                 </div>
                             </div>
                         </div>

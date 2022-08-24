@@ -8,8 +8,11 @@ import Contact from './components/Contact/contact.js';
 import Gallery from './components/Gallery/gallery.js';
 import Management from './components/Management/management.js';
 import Orders from './components/Orders/orders.js';
+import ChatEnv from './components/ChatEnv/env.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5000");
 
 class App extends React.Component {
     state = {
@@ -45,6 +48,7 @@ class App extends React.Component {
                         <Route path="/gallery" element={<Gallery/>}/>
                         <Route path="/management" element={<Management/>}/>
                         <Route path="/orders" element={<Orders/>}/>
+                        <Route path="/chatenv" element={<ChatEnv socket = {socket}/>}/>
                     </Routes>
                 </Router>
 

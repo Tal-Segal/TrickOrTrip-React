@@ -1,26 +1,36 @@
-import React from 'react'
+import React, {useRef} from 'react'
 
 import {useState} from "react";
-import emailjs from "@emailjs/browser";
+import { send } from 'emailjs-com';
 
-//import service from "../../../server/services/management_service.js";
 
 
 function ModalDialog() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [feedback, setFeedback] = useState("");
 
-    const handleSubmit = () => {
+    const [toSend, setToSend] = useState({
+        from_name: '',
+        message: '',
+        reply_to: '',
+    });
 
-        sendFeedback("service_r7njmeg", "template_ra2czfx", {message: feedback, to_name:name, from_name: "TrickOrTrip", reply_to: email}, "e_UstuqeKRd-qH5Zc")
-    }
+    const form = useRef();
 
-    const sendFeedback = (serviceId, templateId, variables, publicKey) => {
-        emailjs.send(serviceId, templateId, variables, publicKey)
-            .then(() => {
-                alert('Email successfully sent!')
-            }).catch(err => alert('Oh well, you failed. Here some thoughts on the error that occured:' + err))
+    const handleChange = (e) => {
+        setToSend({ ...toSend, [e.target.name]: e.target.value });
+    };
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        send("service_r7njmeg", "template_ra2czfx", toSend, "e_UstuqeKRd-qH5Zc")
+            .then((response) => {
+                console.log('SUCCESS!', response.status, response.text);
+            })
+            .catch((err) => {
+                console.log('FAILED...', err);
+            });
+
+        window.location = "http://localhost:3000/contact";
     }
 
     return (
@@ -29,32 +39,35 @@ function ModalDialog() {
                 <div className="container py-5 main">
                     <div className="row">
                         <div className="col-md-12">
-                            <form id="emailForm" name="emailForm">
+                            <form ref={form} onSubmit={sendEmail} id="emailForm" name="emailForm">
                                 <div className="form-group row">
                                     <div className="col-sm-6">
                                         <input type="text" className="form-control" placeholder="Your Name"
-                                               value={name}
-                                               name="name"
-                                               required onChange={(e) => setName(e.target.value)}/>
+                                               value={toSend.from_name}
+                                               name="from_name"
+                                               required
+                                               onChange={handleChange}/>
                                     </div>
                                     <div className="col-sm-6">
-                                        <input type="text" className="form-control" placeholder="Your Email id"
-                                               value={email}
-                                               name="email"
-                                               required onChange={(e) => setEmail(e.target.value)}/>
+                                        <input type="email" className="form-control" placeholder="Your Email id"
+                                               value={toSend.reply_to}
+                                               name="reply_to"
+                                               required onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <div className="col-sm-12">
-                                                <textarea type="text" className="form-control"
-                                                          value={feedback}
-                                                          name="feedback"
+                                                <textarea className="form-control"
+                                                          value={toSend.message}
+                                                          name="message"
                                                           placeholder="your Message" rows="8" required
-                                                          onChange={(e) => setFeedback(e.target.value)}></textarea>
+                                                          onChange={handleChange}
+                                                ></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" onClick={handleSubmit} className="btn btn-primary px-4">Alright
-                                    Submit it
+                                <button type="submit" className="btn btn-primary px-4">Alright
+                                    Send it
                                 </button>
                             </form>
                         </div>

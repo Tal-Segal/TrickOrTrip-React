@@ -5,7 +5,7 @@ const getAllUsers = async (req, res) => {
 }
 
 const addUser = async (req, res) => {
-    await service.addUser(req.body.username, req.body.password, req.body.role);
+    await service.addUser(req.body.username, req.body.password, req.body.role, req.body.profile);
     res.sendStatus(200);
 }
 

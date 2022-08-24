@@ -61,7 +61,7 @@ class Orders extends React.Component {
                     <tr>
                         <th width="30%">DATE</th>
                         <th width="30%">PRICE</th>
-                        <th width="30%">CREDIT_CARD</th>
+                        <th width="30%">CREDIT CARD NUMBER</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -93,27 +93,27 @@ class Orders extends React.Component {
                             <h2>Recent Trips</h2>
                             <div className="row text-center text-lg-left">
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_1} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_3} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_4} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_2} alt=""/></a>
                                 </div>
                                 <div className="col-lg-2 col-md-4 col-xs-6">
-                                    <a href="src/components/Home/index#index.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
+                                    <a href="src/components/Home/index#env.js" className="d-block h-100"><img className="img-fluid img-thumbnail"
                                                                                                                 src={banner_image_1} alt=""/></a>
                                 </div>
                             </div>

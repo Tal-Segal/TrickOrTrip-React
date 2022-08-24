@@ -3,8 +3,6 @@ import {Modal, Button, Form} from 'react-bootstrap'
 
 import {useState} from "react";
 
-//import service from "../../../server/services/management_service.js";
-
 
 function ModalDialog() {
     const [isShow, invokeModal] = React.useState(false)
@@ -27,7 +25,6 @@ function ModalDialog() {
         let form = document.getElementById('loginForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        alert("here");
 
         try {
             // check is user exists
@@ -42,11 +39,7 @@ function ModalDialog() {
             if (response.ok) {
                 localStorage.setItem('username', formdata.get('username'));
                 localStorage.setItem('logged', 'yes');
-
-                alert("isLogged: " + localStorage.getItem('logged'));
-
                 localStorage.setItem('role', body.userRole);
-                alert("role: " + localStorage.getItem('role'));
 
             } else {
                 localStorage.setItem('logged', 'no');
@@ -57,6 +50,10 @@ function ModalDialog() {
         } finally {
             window.location.reload();
         }
+    }
+
+    const handleForgotPassword = () => {
+
     }
 
     return (
@@ -95,10 +92,16 @@ function ModalDialog() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </Form.Group>
+                        <br/>
+                        <Button disabled={!username} onClick={handleForgotPassword}>
+                            FORGOT PASSWORD
+                        </Button>
+                        {/*<Form.Label onClick={forgotPassword}>I forgot my password</Form.Label>*/}
                     </Form>
+
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={closeModal}>
+                    <Button onClick={closeModal}>
                         Cancel
                     </Button>
                     <Button variant="dark" type="submit" onClick={handleSubmit}>
