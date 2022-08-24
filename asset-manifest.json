@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TrickOrTrip-React/static/css/main.fff84791.css",
-    "main.js": "/TrickOrTrip-React/static/js/main.30497e66.js",
+    "main.css": "/TrickOrTrip-React/static/css/main.79d64d5d.css",
+    "main.js": "/TrickOrTrip-React/static/js/main.4847ca9d.js",
     "static/media/banner-image-4.jpg": "/TrickOrTrip-React/static/media/banner-image-4.233d67fa10daeaef7679.jpg",
     "static/media/banner-image-2.jpg": "/TrickOrTrip-React/static/media/banner-image-2.6723254449ef0ee8271e.jpg",
     "static/media/banner-image-3.jpg": "/TrickOrTrip-React/static/media/banner-image-3.73274832355c0122ac8f.jpg",
@@ -9,11 +9,11 @@
     "static/media/footer-bg-image.jpg": "/TrickOrTrip-React/static/media/footer-bg-image.64f42e48937124892243.jpg",
     "static/media/support-bg.jpg": "/TrickOrTrip-React/static/media/support-bg.7f55d93a1b82b7253a48.jpg",
     "index.html": "/TrickOrTrip-React/index.html",
-    "main.fff84791.css.map": "/TrickOrTrip-React/static/css/main.fff84791.css.map",
-    "main.30497e66.js.map": "/TrickOrTrip-React/static/js/main.30497e66.js.map"
+    "main.79d64d5d.css.map": "/TrickOrTrip-React/static/css/main.79d64d5d.css.map",
+    "main.4847ca9d.js.map": "/TrickOrTrip-React/static/js/main.4847ca9d.js.map"
   },
   "entrypoints": [
-    "static/css/main.fff84791.css",
-    "static/js/main.30497e66.js"
+    "static/css/main.79d64d5d.css",
+    "static/js/main.4847ca9d.js"
   ]
 }
