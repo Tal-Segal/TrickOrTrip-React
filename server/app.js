@@ -86,8 +86,21 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/express_backend', (req, res) => { //Line 9
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' }); //Line 10
+app.get('/serviceworker.js', function(request, response) {
+    response.sendFile(path.resolve(__dirname, '../public', 'serviceworker.js'));
+})
+
+app.get('/index.html', function(request, response) {
+    response.sendFile(path.resolve(__dirname, '../public', 'index.html'));
+})
+
+app.get('/offline.html', function(request, response) {
+    response.sendFile(path.resolve(__dirname, '../public', 'offline.html'));
+})
+
+
+app.get('/express_backend', (req, res) => {
+    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
 
