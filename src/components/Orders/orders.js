@@ -4,11 +4,6 @@ import banner_image_2 from "../../images/banner-image-2.jpg";
 import banner_image_3 from "../../images/banner-image-3.jpg";
 import banner_image_4 from "../../images/banner-image-4.jpg";
 
-/*import banner_image_1 from "../../images/banner-image-1.jpg";
-import banner_image_2 from "../../images/banner-image-2.jpg";
-import banner_image_3 from "../../images/banner-image-3.jpg";
-import banner_image_4 from "../../images/banner-image-4.jpg";*/
-
 
 class Orders extends React.Component {
     constructor(props) {

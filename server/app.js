@@ -42,13 +42,6 @@ io.on("connection", (socket) => {
     });
 });
 
-import bodyParser from 'body-parser';
-
-app.use(bodyParser.json({limit: '16mb', extended: true}));     // Make sure you add these two lines
-app.use(bodyParser.urlencoded({limit: '16mb', extended: true}))    //Make sure you add these two lines
-
-
-
 import indexRouter from './routes/home_routes.js';
 import managementRouter from './routes/management_routes.js';
 import galleryRoutes from './routes/gallery_routes.js';
@@ -60,12 +53,37 @@ app.use('/orders', ordersRoutes);
 app.use("/", indexRouter);
 
 
+
+import bodyParser from 'body-parser';
+app.use(bodyParser.json())
+app.use(cookieParser(process.env.COOKIE_SECRET))
+
 import passport from 'passport';  // authentication
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
     function(req, res) {
         res.redirect('/~' + req.user.username);
     });
+
+const SESSION_SECRET='putanythinghere';
+
+import session from 'express-session';
+import UserDetails from '../server/model/user_model.js';
+import LocalStrategy from "passport-local"
+// Set up session
+app.use(
+    session({
+        secret: SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+passport.use(new LocalStrategy.Strategy(UserDetails.authenticate()))
+passport.serializeUser(UserDetails.serializeUser());
+passport.deserializeUser(UserDetails.deserializeUser());
+// Set up Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect('mongodb://localhost:27017/TrickOrTrip',

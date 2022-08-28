@@ -1,5 +1,4 @@
 import React from 'react';
-import {Convert} from 'mongo-image-converter';
 
 import banner_image_2 from "../../images/banner-image-2.jpg";
 import banner_image_1 from "../../images/banner-image-1.jpg";
@@ -73,9 +72,9 @@ class Management extends React.Component {
                             <b> Edit user role </b>
                             <select onChange={(event) => this.changeRole(event)}>
                                 <option> ---Choose role---</option>
-                                <option> Admin</option>
-                                <option> Employee</option>
-                                <option> Customer</option>
+                                <option> admin</option>
+                                <option> employee</option>
+                                <option> customer</option>
                             </select>
                             <button onClick={event => this.handleEditClick(event, usernames.at(index))}>Edit</button>
                         </div>
@@ -141,17 +140,6 @@ class Management extends React.Component {
         let form = document.getElementById('addUserForm');
         // eslint-disable-next-line no-unused-vars
         let formdata = new URLSearchParams(new FormData(form));
-        alert("before conversion: " + this.state.imageFile);
-
-        const convertedImage = await Convert(this.state.imageFile)
-        alert("after conversion: " + convertedImage);
-
-        if (!convertedImage) {
-            alert('The file is not in format of image/jpeg or image/png')
-        } else {
-            formdata.append('profile', convertedImage);
-        }
-
         try {
             let response = await fetch("/management/add",
                 {
@@ -159,10 +147,10 @@ class Management extends React.Component {
                     body: formdata
                 });
             if (response.ok) {
-                alert("ok");
+                console.log("ok");
 
             } else {
-                alert("not ok");
+                console.log("not ok");
             }
         } catch (e) {
             alert("not ok");

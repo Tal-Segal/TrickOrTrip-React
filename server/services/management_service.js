@@ -10,13 +10,12 @@ async function getUsers() {
     }
 }
 
-async function addUser(username, password, role, profile) {
+async function addUser(username, password, role) {
     try {
         return await UserModel.create({
             username: username, password: password, role: role,
-            image: "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-            start_date: new Date().toLocaleString() + "", isValid: true,
-            profile: profile
+            image: "https://us.123rf.com/450wm/warrengoldswain/warrengoldswain1604/warrengoldswain160400123/54730116-beautiful-indian-hispanic-latino-mixed-race-corporate-business-woman-holding-an-organiser.jpg?ver=6",
+            start_date: new Date().toLocaleString() + "", isValid: true
         });
     } catch (err) {
         debug(`Error adding a user: ${err}`);
